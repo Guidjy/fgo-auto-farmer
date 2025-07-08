@@ -2,19 +2,31 @@ import pyautogui
 import time
 import os
 
-# Give the user a moment to prepare
-print("Looking for image in 3 seconds...")
-time.sleep(3)
 
-# Path to the image
-image_path = os.path.join("media", "test.png")
+class Servant:
+    def __init__(self, name, position, is_kukulkan=False):
+        self.name = name
+        self.position = position
+        self.is_kukulkan = is_kukulkan
+    
+    def use_skill(skill_number, targetable=False, target=1):
+        print('servant skill!')
 
-# Locate the image on screen
-location = pyautogui.locateCenterOnScreen(image_path, confidence=0.8)  # Adjust confidence if needed
 
-if location:
-    print(f"Image found at {location}, moving and clicking...")
-    pyautogui.moveTo(location, duration=0.5)
-    pyautogui.click()
-else:
-    print("Image not found on screen.")
+class Master:
+    def use_skill(skill_number):
+        print('master skill!')
+        
+    def order_change(servant1, servant2):
+        """
+        changes the position of servant1 and servant2
+        """
+        print('order change')
+
+
+if __name__ == '__main__':
+    #time.sleep(2)
+    for i in range(4):
+        time.sleep(3)
+        x, y = pyautogui.position()
+        print(f"Mouse position: ({x}, {y})")
