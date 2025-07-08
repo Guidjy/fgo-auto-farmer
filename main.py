@@ -22,11 +22,17 @@ class Master:
         changes the position of servant1 and servant2
         """
         print('order change')
+        
+
+def find_support_servant(servant):
+    if servant == 'koyansakaya':
+        print('0-0')
+        
 
 
 if __name__ == '__main__':
     #time.sleep(2)
-    for i in range(4):
+    for i in range(1):
         time.sleep(3)
         x, y = pyautogui.position()
         print(f"Mouse position: ({x}, {y})")
