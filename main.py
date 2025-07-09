@@ -130,7 +130,14 @@ def end_quest():
 
 
 if __name__ == '__main__':
+    time.sleep(5)
+    nodes_farmed = 0
     while True:
+        
+        if pyautogui.position() == (0, 0):
+            print(f'nodes_farmed: {nodes_farmed}')
+            break
+        
         find_support_servant('koyanskaya')
         wait_for_image('master_icon')
         pyautogui.click()
@@ -179,5 +186,7 @@ if __name__ == '__main__':
         
         time.sleep(0.5)
         end_quest()
+        
+        nodes_farmed += 1
     
     
