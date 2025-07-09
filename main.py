@@ -104,8 +104,8 @@ def find_support_servant(servant):
     if servant == 'koyanskaya':
         wait_for_image_and_click('assassin_icon')
         wait_for_image_and_click('10_10_10_koyan')
-        time.sleep(2)
-        wait_for_image_and_click('quest_start_button')
+        #time.sleep(2)
+        #wait_for_image_and_click('quest_start_button')
         
 def end_quest():
     quest_end_button = None
@@ -122,8 +122,11 @@ def end_quest():
     
     golden_apple = locate_image('golden_apple')
     if golden_apple:
-        pyautogui.click(golden_apple)
+        pyautogui.moveTo(golden_apple)
+        time.sleep(0.3)
+        pyautogui.click()
         pyautogui.moveTo(1356, 763, 0.3)
+        pyautogui.click()
 
 
 if __name__ == '__main__':
@@ -131,7 +134,7 @@ if __name__ == '__main__':
         find_support_servant('koyanskaya')
         wait_for_image('master_icon')
         pyautogui.click()
-        time.sleep(2.5)
+        time.sleep(3)
         
         koyan1 = Servant('Koyanskaya')
         kukulkan = Servant('Kukulkan', is_kukulkan=True)
