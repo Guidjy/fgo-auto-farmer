@@ -4,6 +4,7 @@ import os
 
 
 CONFIDENCE = 0.8
+INTERVAL = 1
 
 
 def locate_image(image):
@@ -13,7 +14,10 @@ def locate_image(image):
     - image: file name without extension
     """
     image_path = os.path.join('media', image + '.png')
-    location = pyautogui.locateCenterOnScreen(image_path, confidence=CONFIDENCE)
+    try:
+        location = pyautogui.locateCenterOnScreen(image_path, confidence=CONFIDENCE)
+    except pyautogui.ImageNotFoundException as e:
+        location = None
     
     return location
 
@@ -30,4 +34,18 @@ def wait_for_image(image):
         location = locate_image(image)
     
     return location
+
+
+def wait_for_image_and_click(image):
+    """
+    Keeps searching for the image until it is found on the screen.
+    double clicks it as soon as it appears.
+    args:
+    - image: file name without extension
+    """
+    location = None
+    while location == None:
+        location = locate_image(image)
+    
+    pyautogui.doubleClick(location)
     
