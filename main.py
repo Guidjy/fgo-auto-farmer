@@ -97,7 +97,7 @@ class Master:
         pyautogui.click()
         pyautogui.click()
         wait_for_image('master_icon')
-        time.sleep(2)
+        time.sleep(0.3)
         
 
 def find_support_servant(servant):
@@ -171,7 +171,7 @@ if __name__ == '__main__':
         kukulkan.use_np()
         
         wait_for_image('master_icon')
-        time.sleep(3)
+        time.sleep(1.5)
         
         # wave 3
         Master.order_change()
@@ -188,5 +188,7 @@ if __name__ == '__main__':
         end_quest()
         
         nodes_farmed += 1
+        with open("nodes_farmed.txt", "w") as file:
+            file.write('nodes farmed: ' + str(nodes_farmed))
     
     
