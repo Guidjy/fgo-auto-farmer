@@ -58,18 +58,15 @@ class Servant:
         pyautogui.click()
         pyautogui.moveTo(1098, 345, 0.5)
         pyautogui.click()
-        pyautogui.moveTo(1098, 670, 0.3)
+        pyautogui.moveTo(1098, 670, 0.1)
         pyautogui.click()
-        pyautogui.moveTo(1421, 822, 0.3)
+        pyautogui.moveTo(1421, 822, 0.1)
         pyautogui.click()
-        
-        wait_for_image('master_icon')
-        time.sleep(0.5)
 
 
 class Master:
     def use_skill(skill_number):
-        pyautogui.moveTo(1711, 822, 0.3)
+        pyautogui.moveTo(1776, 468, 0.3)
         pyautogui.click()
         match skill_number:
             case 1:
@@ -83,11 +80,24 @@ class Master:
         wait_for_image('master_icon')
         time.sleep(0.5)
         
-    def order_change(servant1, servant2):
+    def order_change():
         """
         changes the position of servant1 and servant2
         """
-        print('order change')
+        # dis prolly the worst code ive ever written since connect 4 in assembly
+        pyautogui.moveTo(1776, 468, 0.3)
+        pyautogui.click()
+        pyautogui.moveTo(1644, 469, 0.2)
+        pyautogui.click()
+        pyautogui.moveTo(969, 511, 0.2)
+        pyautogui.click()
+        pyautogui.moveTo(1242, 511, 0.2)
+        pyautogui.click()
+        pyautogui.moveTo(1096, 852, 0.2)
+        pyautogui.click()
+        pyautogui.click()
+        wait_for_image('master_icon')
+        time.sleep(2)
         
 
 def find_support_servant(servant):
@@ -96,38 +106,75 @@ def find_support_servant(servant):
         wait_for_image_and_click('10_10_10_koyan')
         time.sleep(2)
         wait_for_image_and_click('quest_start_button')
+        
+def end_quest():
+    quest_end_button = None
+    pyautogui.moveTo(1815, 651)
+    while quest_end_button == None:
+        pyautogui.click()
+        quest_end_button = locate_image('quest_end_button')
+    pyautogui.moveTo(quest_end_button)
+    time.sleep(0.3)
+    pyautogui.click()
+    
+    wait_for_image_and_click('quest_redo_button')
+    time.sleep(1)
+    
+    golden_apple = locate_image('golden_apple')
+    if golden_apple:
+        pyautogui.click(golden_apple)
+        pyautogui.moveTo(1356, 763, 0.3)
 
 
 if __name__ == '__main__':
-    find_support_servant('koyanskaya')
-    wait_for_image('master_icon')
-    pyautogui.click()
-    time.sleep(3)
-    
-    koyan1 = Servant('Koyanskaya')
-    kukulkan = Servant('Kukulkan', is_kukulkan=True)
-    koyan2 = Servant('Koyanskaya')
-    oberon = Servant('Oberon')
-    
-    # wave 1
-    koyan1.use_skill(2, True)
-    koyan1.use_skill(3, True)
-    
-    koyan2.use_skill(8, True)
-    koyan2.use_skill(9, True)
-    
-    kukulkan.use_skill(4)
-    kukulkan.use_skill(5, True)
-    kukulkan.use_skill(6)
-    kukulkan.use_np()
-    
-    # wave 2
-    koyan1.use_skill(1, True)
-    koyan2.use_skill(7, True)
-    
-    kukulkan.use_skill(4)
-    kukulkan.use_np()
-    
-    # wave 3
+    while True:
+        find_support_servant('koyanskaya')
+        wait_for_image('master_icon')
+        pyautogui.click()
+        time.sleep(2.5)
+        
+        koyan1 = Servant('Koyanskaya')
+        kukulkan = Servant('Kukulkan', is_kukulkan=True)
+        koyan2 = Servant('Koyanskaya')
+        oberon = Servant('Oberon')
+        
+        # wave 1
+        koyan1.use_skill(2, True)
+        koyan1.use_skill(3, True)
+        
+        koyan2.use_skill(8, True)
+        koyan2.use_skill(9, True)
+        
+        kukulkan.use_skill(4)
+        kukulkan.use_skill(5, True)
+        kukulkan.use_skill(6)
+        kukulkan.use_np()
+        
+        wait_for_image('master_icon')
+        time.sleep(0.5)
+        
+        # wave 2
+        koyan1.use_skill(1, True)
+        koyan2.use_skill(7, True)
+        
+        kukulkan.use_skill(4)
+        kukulkan.use_np()
+        
+        wait_for_image('master_icon')
+        time.sleep(3)
+        
+        # wave 3
+        Master.order_change()
+        Master.use_skill(1)
+        
+        oberon.use_skill(7)
+        oberon.use_skill(8, True)
+        oberon.use_skill(9, True)
+        
+        kukulkan.use_skill(5, True)
+        kukulkan.use_np()
+        
+        time.sleep(0.5)
+        end_quest()
     
     
